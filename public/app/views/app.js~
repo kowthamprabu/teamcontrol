@@ -1,0 +1,5 @@
+angular.module('TeamControl',['appRoute','MainCtrl','authService','userService','userCtrl'])
+
+.config(function ($httpProvider) {
+	$httpProvider.interceptors.push('VerifyToken');
+});

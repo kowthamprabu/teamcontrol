@@ -1,0 +1,57 @@
+angular.module('MainCtrl',[])
+
+.controller('MainController',function ($rootScope, $location, Auth) {
+
+	var vm = this;
+	
+	vm.loggedIn = Auth.isLoggedIn();
+	
+	$rootScope.$on('$routeChangeStart',function () {
+		vm.loggedIn = Auth.isLoggedIn();
+		
+		if(vm.loggedIn){
+			Auth.getUser()
+			    .then(function (data) {
+			    		vm.userData = data.data;
+			    });		
+		}
+
+	});
+	vm.getUserLoggedIn = function () {
+		return vm.loginData.username;
+	}
+	vm.doLogin = function () { 
+		vm.processing = true;
+		vm.error = '';
+		
+		Auth.login(vm.loginData.username,vm.loginData.password)
+			 .success(function (tokenData) {
+				vm.processing = false;
+
+				Auth.getUser()
+				    .then(function (data) {
+						vm.userData = data.data;				    
+				    });
+
+				if(tokenData.success)
+					$location.path('/');
+				else 
+					vm.error = tokenData;
+				
+			 });
+			 
+	}
+	
+	vm.doLogout = function(username){
+		console.log(username);
+		Auth.logout(username)
+		    .success(function () {
+				vm.userData.username = '';		    
+		    })
+
+		$location.path('/logout');	
+	}	
+	
+	
+
+})

@@ -1,0 +1,19 @@
+{
+  "name": "Team_Control",
+  "version": "0.0.0",
+  "description": "A forecasting tool for the team with instant messaging",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kowtham Prabu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.0.5",
+    "mongoose": "^4.1.5",
+    "morgan": "^1.6.1",
+    "socket.io": "^1.3.6"
+  }
+}
